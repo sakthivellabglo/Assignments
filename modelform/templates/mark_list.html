@@ -1,0 +1,42 @@
+<html>
+
+<body>
+	<h1>mark Table</h1><br>
+	<table border='1'>
+		<tr>
+			<th style="padding-right: 50px;">student_id</th>
+			<th style="padding-right: 50px;">subject</th>
+			<th style="padding-right: 50px;">mark</th>
+			<th style="padding-right: 50px;">created_date</th>
+			<th style="padding-right: 50px;">date_modified</th>
+			<th style="padding-right: 50px;">delete</th>
+			<th style="padding-right: 50px;">update</th>
+		</tr>
+		{% for x in my_data %}
+		<tr>
+			<td>{{ x.student_id }}</td>
+			<td>{{ x.subject }}</td>
+			<td>{{ x.mark }}</td>
+			<td>{{ x.created_date}}</td>
+			<td>{{ x.date_modified}}</td>
+			
+
+			<td><a href='../mark_delete/{{x.id}}'><button type="submit">delete</button></a></td>
+
+
+			<td><a href='../mark_update/{{x.id}}'><button type="submit">update</button></a></td>
+			{% endfor %}
+
+
+		</tr>
+	</table>
+<<<<<<< HEAD
+	<a href="{% url 'mark_add'%}"><button type="submit">add</button></a>
+	<a href = "{% url 'json'%}"><button>jsonfile</button></a>
+=======
+	<a href='../mark_add'><button type="submit">add</button></a>
+>>>>>>> master
+
+</body>
+
+</html>

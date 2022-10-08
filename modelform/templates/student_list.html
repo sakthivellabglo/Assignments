@@ -1,0 +1,40 @@
+<html>
+
+<body>
+	<h1>Students Table</h1><br>
+	<table border='1'>
+		<tr>
+			<th style="padding-right: 50px;">ID</th>
+			<th style="padding-right: 50px;">First_name</th>
+			<th style="padding-right: 50px;">Last_name</th>
+			<th style="padding-right: 50px;">img</th>
+		</tr>
+		{% for x in my_data %}
+		<tr>
+
+			<td>{{ x.id }}</td>
+			<td>{{ x.first_name }}</td>
+			<td>{{ x.last_name }}</td>
+			<td><img src="{{ x.img.url }}" , width=80px></td>
+
+
+			<td><a href='delete/{{x.id}}'><button type="submit">delete</button></a></td>
+			<td><a href='mark_student/{{x.id}}'><button type="submit">update</button></a></td>
+
+
+			<td><a href='mark/{{x.id}}'><button type="submit">mark</button></a></td>
+			{% endfor %}
+
+	
+		</tr>
+	</table>
+<<<<<<< HEAD
+	<a href="{% url 'add'%}"><button type="submit">add</button></a>
+	<a href = "{% url 'logout' %}" ><button>logout</button></a>
+=======
+	<a href='add'><button type="submit">add</button></a>
+>>>>>>> master
+
+</body>
+
+</html>
