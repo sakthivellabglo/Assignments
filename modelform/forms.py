@@ -14,8 +14,4 @@ class markForm(forms.ModelForm):
     # specify the name of model to use
     class Meta:
         model = mark
-<<<<<<< HEAD
         fields = ["student","subject","mark",]
-=======
-        fields = "__all__"
->>>>>>> master
