@@ -32,7 +32,8 @@ def add(request):
     context ={}
     form = GeeksForm(request.POST or None, request.FILES or None)
     if form.is_valid():
-        form.save()	
+        form.save()
+        return redirect('view')	
     context['form']= form
     return render(request, "add_student.html", context);
 
@@ -62,7 +63,8 @@ def update_student(request, id):
     stu_obj = stu.objects.get(id=id) 
     form = GeeksForm(request.POST or None, request.FILES or None, instance = stu_obj)  
     if form.is_valid():  
-        form.save()    
+        form.save()
+        return redirect('view')    
     return render(request, 'update_mark.html', {'form':form})
 
 
@@ -71,7 +73,9 @@ def mark_add(request):
     context ={}
     form = markForm(request.POST or None, request.FILES or None)
     if form.is_valid():
+        form.created_by = (request.user).username
         form.save()	
+        return redirect('view')
     context['form']= form
     return render(request, "add_mark.html", context)
 @login_required(redirect_field_name='next', login_url='login')
@@ -83,8 +87,10 @@ def delete_mark(request,id):
 def update_mark(request, id):  
     stu_obj = mark.objects.get(id=id) 
     form = markForm(request.POST or None, request.FILES or None, instance = stu_obj)  
-    if form.is_valid():  
-        form.save()    
+    if form.is_valid():
+        form.updated_by = (request.user).username  
+        form.save()
+        return redirect('view')    
     return render(request, 'update_mark.html', {'form':form})
 
 
@@ -93,7 +99,6 @@ def jsondisplay(request):
     stu_obj = mark.objects.all()
     result_list = list(stu_obj.values())
     result_list=json.dumps(result_list, default=str,indent=2)
-    print(type(result_list))
     return HttpResponse(result_list ,content_type = "Application/json")
  
    
