@@ -19,7 +19,10 @@ def user_login(request):
             return redirect('login')
     else:
         form = AuthenticationForm(request.POST)
-        return render(request,'login.html',{'form':form})	
+        return render(request,'login.html',{'form':form})
+def user_logout(request):
+    logout(request)
+    return redirect('user_login')	
 
 
 
