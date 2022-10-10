@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import render,HttpResponse,redirect
 from .forms import *
 from .models import *
@@ -22,7 +23,7 @@ def user_login(request):
         return render(request,'login.html',{'form':form})
 def user_logout(request):
     logout(request)
-    return redirect('user_login')	
+    return redirect('add')	
 
 
 
