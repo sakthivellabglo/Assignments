@@ -73,6 +73,7 @@ def mark_add(request):
     context ={}
     form = markForm(request.POST or None, request.FILES or None)
     if form.is_valid():
+        form = form.save(commit = False)
         form.created_by = (request.user).username
         form.save()	
         return redirect('view')
@@ -88,7 +89,8 @@ def update_mark(request, id):
     stu_obj = mark.objects.get(id=id) 
     form = markForm(request.POST or None, request.FILES or None, instance = stu_obj)  
     if form.is_valid():
-        form.updated_by = (request.user).username  
+        form = form.save(commit = False)
+        form.updated_by = (request.user).username 
         form.save()
         return redirect('view')    
     return render(request, 'update_mark.html', {'form':form})
