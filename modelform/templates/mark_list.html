@@ -9,6 +9,8 @@
 			<th style="padding-right: 50px;">mark</th>
 			<th style="padding-right: 50px;">created_date</th>
 			<th style="padding-right: 50px;">date_modified</th>
+			<th style="padding-right: 50px;">created_by</th>
+			<th style="padding-right: 50px;">modified_by</th>
 			<th style="padding-right: 50px;">delete</th>
 			<th style="padding-right: 50px;">update</th>
 		</tr>
@@ -19,6 +21,8 @@
 			<td>{{ x.mark }}</td>
 			<td>{{ x.created_date}}</td>
 			<td>{{ x.date_modified}}</td>
+			<td>{{ x.created_by}}</td>
+			<td>{{ x.updated_by}}</td>
 			
 
 			<td><a href='../mark_delete/{{x.id}}'><button type="submit">delete</button></a></td>

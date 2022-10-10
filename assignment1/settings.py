@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'assignment1.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'assign',
+        'NAME': 'school',
         'USER': 'root',
         'PASSWORD': 'password',
         'HOST': 'localhost',
