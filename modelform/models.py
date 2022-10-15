@@ -1,13 +1,18 @@
-from datetime import date
 from django.db import models
+from django.contrib.auth.models import User
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    image = models.ImageField(default='default.jpg', upload_to='profile_pics')
+ 
+    def __str__(self):
+        return f'{self.user.username} Profile'
 
 class stu(models.Model):
 	first_name = models.CharField(max_length = 40, null = True)
 	last_name = models.CharField(max_length = 40, null = True)
 	dob = models.IntegerField(null = True)
 	img = models.ImageField(null = True)
-	
 	def __str__(self):
 		return "{}".format(self.id)
 class mark(models.Model):
@@ -21,3 +26,4 @@ class mark(models.Model):
 	def __str__(self):
 		return "{} {} {} {} {} ".format(self.subject,self.mark,self.created_date,self.date_modified,self.student)
 # Create your models here.	img = models.ImageField()
+ 
