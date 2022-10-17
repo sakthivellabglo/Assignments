@@ -1,7 +1,7 @@
 import json
 from django.shortcuts import render,HttpResponse,redirect
-from .forms import *
-from .models import *
+from modelform.forms import *
+from modelform.models import *
 from django .contrib import messages
 from django.contrib.auth. forms import AuthenticationForm
 from django.contrib.auth import login,logout ,authenticate
