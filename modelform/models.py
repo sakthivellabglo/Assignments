@@ -1,3 +1,4 @@
+from distutils.command.upload import upload
 import email
 from django.db import models
 from django.contrib.auth.models import User
@@ -13,7 +14,7 @@ class stu(models.Model):
 	first_name = models.CharField(max_length = 40, null = True)
 	last_name = models.CharField(max_length = 40, null = True)
 	dob = models.IntegerField(null = True)
-	img = models.ImageField(null = True)
+	img = models.ImageField(null = True,upload_to='images/')
 	email=models.EmailField(null = True)
 	def __str__(self):
 		return " {} ".format(self.email)
