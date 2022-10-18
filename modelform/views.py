@@ -6,6 +6,12 @@ from django .contrib import messages
 from django.contrib.auth. forms import AuthenticationForm
 from django.contrib.auth import login,logout ,authenticate
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render ,HttpResponse
+from django.core import serializers
+import json
+from django.views.generic.list import ListView
+
+
 def user_login(request):
     if request.method == 'POST':
         form = AuthenticationForm(request.POST)
@@ -21,10 +27,27 @@ def user_login(request):
     else:
         form = AuthenticationForm(request.POST)
         return render(request,'login.html',{'form':form})
+
+
 def user_logout(request):
     logout(request)
     return redirect('add')	
 
+
+class StudentList(ListView):
+
+	model = stu
+	#template_name = 'listview.html'
+	def get(self, request):
+		#queryset = list(studentModel.objects.all().values())
+            queryset = list(stu.objects.all())
+            mark_queryset = list(mark.objects.all())
+            queryset =queryset + mark_queryset
+            #js_studentdata = json.dumps(queryset, default=str,indent=2)
+            js_data = serializers.serialize("json", queryset,indent=2)
+            print(type(js_data))
+            #return JsonResponse(js_data  , safe=False)
+            return HttpResponse(js_data ,content_type="Application/json" )
 
 
 @login_required(redirect_field_name='next', login_url='login')
@@ -79,11 +102,15 @@ def mark_add(request):
         return redirect('view')
     context['form']= form
     return render(request, "add_mark.html", context)
+
+
 @login_required(redirect_field_name='next', login_url='login')
 def delete_mark(request,id):
     obj1 = mark.objects.get(id=id)
     obj1.delete()
     return HttpResponse("your data will be deleted") 
+
+
 @login_required(redirect_field_name='next', login_url='login')
 def update_mark(request, id):  
     stu_obj = mark.objects.get(id=id) 
@@ -103,6 +130,7 @@ def jsondisplay(request):
     result_list=json.dumps(result_list, default=str,indent=2)
     return HttpResponse(result_list ,content_type = "Application/json")
  
+
 def profile(request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
@@ -123,6 +151,5 @@ def profile(request):
         'u_form': u_form,
         'p_form': p_form
     }
- 
     return render(request, 'profile.html', context)
 

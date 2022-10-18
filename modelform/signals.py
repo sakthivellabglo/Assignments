@@ -16,9 +16,10 @@ def create_mark(sender, instance, created, **kwargs):
 @receiver(post_save, sender=mark)
 def save_mark(sender, instance, **kwargs):
         print("signals saved")
+      
         instance.student.save()
-        print(instance.student)
-       
+        print(instance)
+        student = stu.objects.get(id=instance.id)
         send_mail('mail', 'your mark is now {} '.format(instance.mark), "Don't Reply <do_not_reply@domain.example>", ['{}'.format(instance.student)])
 
 @receiver(post_delete, sender=stu)
