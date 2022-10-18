@@ -17,7 +17,7 @@ class stu(models.Model):
 	img = models.ImageField(null = True,upload_to='images/')
 	email=models.EmailField(null = True)
 	def __str__(self):
-		return " {} ".format(self.email)
+		return " {} ".format(self.id)
 class mark(models.Model):
 	subject =models.CharField(max_length = 40,null = True)
 	mark = models.IntegerField(null = True)
