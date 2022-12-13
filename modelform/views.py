@@ -6,10 +6,10 @@ from django .contrib import messages
 from django.contrib.auth. forms import AuthenticationForm
 from django.contrib.auth import login,logout ,authenticate
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render ,HttpResponse
 from django.core import serializers
 import json
 from django.views.generic.list import ListView
+from django.core.paginator import Paginator
 
 
 def user_login(request):
@@ -35,13 +35,12 @@ def user_logout(request):
 
 
 class StudentList(ListView):
-
-	model = stu
-	#template_name = 'listview.html'
-	def get(self, request):
+    model = stu
+    def render_to_response(self, *args,**kwargs):
 		#queryset = list(studentModel.objects.all().values())
             queryset = list(stu.objects.all())
             mark_queryset = list(mark.objects.all())
+            
             queryset =queryset + mark_queryset
             #js_studentdata = json.dumps(queryset, default=str,indent=2)
             js_data = serializers.serialize("json", queryset,indent=2)
@@ -64,6 +63,7 @@ def add(request):
 @login_required(redirect_field_name='next', login_url='login')
 def list_table(request):
 	stu_obj = stu.objects.all()
+    
 	return render(request,'student_list.html',{'my_data':stu_obj})
 
 
@@ -127,6 +127,9 @@ def update_mark(request, id):
 def jsondisplay(request):
     stu_obj = mark.objects.all()
     result_list = list(stu_obj.values())
+    paginator = Paginator(result_list, 3)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     result_list=json.dumps(result_list, default=str,indent=2)
     return HttpResponse(result_list ,content_type = "Application/json")
  
@@ -152,4 +155,6 @@ def profile(request):
         'p_form': p_form
     }
     return render(request, 'profile.html', context)
+
+
 

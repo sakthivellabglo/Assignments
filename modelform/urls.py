@@ -1,7 +1,7 @@
 from django.urls import path 
 from modelform import views
 urlpatterns = [ path('add/',views.add,name = 'add'),
-				path('list/',views.StudentList.as_view()),	
+				path('lists/',views.StudentList.as_view()),	
 				path('login',views.user_login,name='login'),
 				path('view',views.list_table,name = 'view' ),
 				path('delete/<int:id>',views.delete_data,name='delete'),
